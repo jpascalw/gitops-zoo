@@ -9,8 +9,11 @@ stages:
   - job: Validate
     continueOnError: false
     steps:
-    - publish: the-zoo
-      artifact: terraform_out
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'terraform_out'
+        publishLocation: 'Container'
     - task: TerraformInstaller@0
       displayName: 'Use Terraform v0.12.1'
       inputs:
