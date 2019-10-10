@@ -3,22 +3,72 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: Validate
+  jobs:
+  - job: Validate
+    continueOnError: false
+    steps:
+    - publish: the-zoo-publish
+      artifact: terraform_out
+    - task: TerraformInstaller@0
+      displayName: 'Use Terraform v0.12.1'
+      inputs:
+        terraformVersion: 0.12.1
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Initialize'
+      inputs:
+        command: 'init'
+        provider: 'azurerm'
+        backendServiceArm: 'Biner Azure Cloud Subscription'
+        backendAzureRmStorageAccountName: 'thezoostorage'
+        backendAzureRmContainerName: 'thezoostoragecontainer'
+        backendAzureRmKey: 'foo'
+        backendAzureRmResourceGroupName: 'the-zoo-rg'
+    - task: TerraformTaskV1@0
+      displayName: 'terraform validate'
+      inputs:
+        command: validate
+        workingDirectory: 
 
-steps:
-- task: TerraformTaskV1@0
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'Biner Azure Cloud Subscription'
-    backendAzureRmStorageAccountName: 'thezoostorage'
-    backendAzureRmContainerName: 'thezoostoragecontainer'
-    backendAzureRmKey: 'foo'
-    backendAzureRmResourceGroupName: 'the-zoo-rg'
-
-- task: TerraformTaskV1@0
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    environmentServiceNameAzureRM: 'Biner Azure Cloud Subscription'
+- stage: Deploy
+  jobs:
+    # track deployments on the environment
+  - deployment: Deploy_Terraform
+    pool:
+      vmImage: 'ubuntu-latest'
+    # creates an environment if it doesn’t exist
+    environment: 'Development'
+    strategy:
+      # default deployment strategy
+      runOnce:
+        deploy:
+          steps:
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Initialize'
+            inputs:
+              command: init
+              workingDirectory: $(Pipeline.Workspace)/terraform_out
+              backendType: azurerm
+              backendServiceArm: 'Biner Azure Cloud Subscription'
+              backendAzureRmStorageAccountName: 'thezoostorage'
+              backendAzureRmContainerName: 'thezoostoragecontainer'
+              backendAzureRmKey: 'foo'
+              backendAzureRmResourceGroupName: 'the-zoo-rg'
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Plan'
+            inputs:
+              command: plan
+              workingDirectory: $(Pipeline.Workspace)/terraform_out
+              environmentServiceName: 'Azure SPN'
+              secureVarsFile: 'aks_conf.tfvars'
+              commandOptions: '-out $(Pipeline.Workspace)/terraform_out/terraform_aks_out'
+              terraformVersion: 0.12.1
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Apply'
+            inputs:
+              command: apply
+              workingDirectory: $(Pipeline.Workspace)/terraform_out
+              environmentServiceName: 'Azure SPN'
+              commandOptions: '$(Pipeline.Workspace)/terraform_out/terraform_aks_out'
+              terraformVersion: 0.12.1
