@@ -50,21 +50,20 @@ stages:
           - task: TerraformTaskV1@0
             displayName: 'Terraform Initialize'
             inputs:
-              command: init
-              workingDirectory: $(Pipeline.Workspace)/terraform_out
-              backendType: azurerm
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
               backendServiceArm: 'Biner Azure Cloud Subscription'
+              backendAzureRmResourceGroupName: 'the-zoo-rg'
               backendAzureRmStorageAccountName: 'thezoostorage'
               backendAzureRmContainerName: 'thezoostoragecontainer'
               backendAzureRmKey: 'foo'
-              backendAzureRmResourceGroupName: 'the-zoo-rg'
           - task: TerraformTaskV1@0
             displayName: 'Terraform Plan'
             inputs:
               provider: 'azurerm'
               command: 'plan'
               workingDirectory: '$(Pipeline.Workspace)/terraform_out'
-              commandOptions: '-out $(Pipeline.Workspace)/terraform_out/terraform_aks_out'
               environmentServiceNameAzureRM: 'Biner Azure Cloud Subscription'
           - task: TerraformTaskV1@0
             displayName: 'Terraform Apply'
@@ -72,5 +71,4 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               workingDirectory: '$(Pipeline.Workspace)/terraform_out'
-              commandOptions: '$(Pipeline.Workspace)/terraform_out/terraform_aks_out'
               environmentServiceNameAzureRM: 'Biner Azure Cloud Subscription'
