@@ -15,9 +15,9 @@ stages:
         ArtifactName: 'terraform_out'
         publishLocation: 'Container'
     - task: TerraformInstaller@0
-      displayName: 'Use Terraform v0.12.1'
+      displayName: 'Use Terraform v0.12.10'
       inputs:
-        terraformVersion: 0.12.1
+        terraformVersion: 0.12.10
     - task: TerraformTaskV1@0
       displayName: 'Terraform Initialize'
       inputs:
