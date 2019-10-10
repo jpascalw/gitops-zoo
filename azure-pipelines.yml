@@ -13,6 +13,7 @@ steps:
     command: 'init'
     backendServiceArm: 'Biner Azure Cloud Subscription'
     backendAzureRmStorageAccountName: 'thezoostorage'
+    backendAzureRmContainerName: 'thezoostoragecontainer'
 
 - task: TerraformTaskV1@0
   inputs:
