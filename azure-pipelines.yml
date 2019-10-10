@@ -15,6 +15,7 @@ steps:
     backendAzureRmStorageAccountName: 'thezoostorage'
     backendAzureRmContainerName: 'thezoostoragecontainer'
     backendAzureRmKey: 'foo'
+    backendAzureRmResourceGroupName: 'the-zoo-rg'
 
 - task: TerraformTaskV1@0
   inputs:
