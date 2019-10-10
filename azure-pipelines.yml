@@ -14,6 +14,7 @@ steps:
     backendServiceArm: 'Biner Azure Cloud Subscription'
     backendAzureRmStorageAccountName: 'thezoostorage'
     backendAzureRmContainerName: 'thezoostoragecontainer'
+    backendAzureRmKey: 'foo'
 
 - task: TerraformTaskV1@0
   inputs:
