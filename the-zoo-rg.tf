@@ -118,8 +118,8 @@ resource "azurerm_network_interface" "ubuntu-vm-1-nic" {
 }
 
 # Create storage account
-resource "azurerm_storage_account" "storage" {
-    name                        = "storage"
+resource "azurerm_storage_account" "the-zoo-storage" {
+    name                        = "the-zoo-storage"
     resource_group_name         = "${azurerm_resource_group.the-zoo-rg.name}"
     location                    = "northeurope"
     account_tier                = "Standard"
