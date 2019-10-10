@@ -29,7 +29,7 @@ stages:
         backendAzureRmKey: 'foo'
         backendAzureRmResourceGroupName: 'the-zoo-rg'
     - task: TerraformTaskV1@0
-      displayName: 'terraform validate'
+      displayName: 'Terraform Validate'
       inputs:
         provider: 'azurerm'
         command: 'validate'
