@@ -9,7 +9,7 @@ stages:
   - job: Validate
     continueOnError: false
     steps:
-    - publish: the-zoo-publish
+    - publish: the-zoo
       artifact: terraform_out
     - task: TerraformInstaller@0
       displayName: 'Use Terraform v0.12.1'
