@@ -155,13 +155,14 @@ resource "azurerm_virtual_machine" "ubuntu-vm-0" {
     os_profile {
         computer_name  = "ubuntu-vm-0"
         admin_username = "ansibleroot"
+        admin_password = "@nsiblepassw0rd!"
     }
 
     os_profile_linux_config {
-        disable_password_authentication = true
-        ssh_keys {
-            path     = "/home/ansibleroot/.ssh/authorized_keys"
-            key_data = file("~/.ssh/id_rsa.pub")
+        disable_password_authentication = false
+ #       ssh_keys {
+ #           path     = "/home/ansibleroot/.ssh/authorized_keys"
+ #           key_data = file("~/.ssh/id_rsa.pub")
         }
     }
     
@@ -195,13 +196,14 @@ resource "azurerm_virtual_machine" "ubuntu-vm-1" {
     os_profile {
         computer_name  = "ubuntu-vm-1"
         admin_username = "ansibleroot"
+        admin_password = "@nsiblepassw0rd!"
     }
 
     os_profile_linux_config {
-        disable_password_authentication = true
-        ssh_keys {
-            path     = "/home/ansibleroot/.ssh/authorized_keys"
-            key_data = file("~/.ssh/id_rsa.pub")
+        disable_password_authentication = false
+ #       ssh_keys {
+ #           path     = "/home/ansibleroot/.ssh/authorized_keys"
+ #           key_data = file("~/.ssh/id_rsa.pub")
         }
     }
 
