@@ -26,4 +26,4 @@ An all in one demo environment for showcasing key dev and ops concepts.
 * Incident response to host monitoring agent gone offline
 * Incident response to SonarQube service going offline
 * GitOps tuning of alert policy
-* GitOps deploying a new version of a dashboard
+* GitOps develop and deploy a new version of a dashboard
