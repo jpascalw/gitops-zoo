@@ -36,13 +36,11 @@ stages:
 
 - stage: Deploy
   jobs:
-  - deployment: Deploy_Terraform
+  - deployment: Terraforming
     pool:
       vmImage: 'ubuntu-latest'
-    # creates an environment if it doesn’t exist
     environment: 'Development'
     strategy:
-      # default deployment strategy
       runOnce:
         deploy:
           steps:
