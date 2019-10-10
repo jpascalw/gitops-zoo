@@ -12,6 +12,7 @@ steps:
     provider: 'azurerm'
     command: 'init'
     backendServiceArm: 'Biner Azure Cloud Subscription'
+    
 - task: TerraformTaskV1@0
   inputs:
     provider: 'azurerm'
