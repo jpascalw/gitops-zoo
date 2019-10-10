@@ -36,7 +36,6 @@ stages:
 
 - stage: Deploy
   jobs:
-    # track deployments on the environment
   - deployment: Deploy_Terraform
     pool:
       vmImage: 'ubuntu-latest'
