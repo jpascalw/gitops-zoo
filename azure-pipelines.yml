@@ -12,7 +12,8 @@ steps:
     provider: 'azurerm'
     command: 'init'
     backendServiceArm: 'Biner Azure Cloud Subscription'
-    
+    backendAzureRmStorageAccountName: 'storage'
+
 - task: TerraformTaskV1@0
   inputs:
     provider: 'azurerm'
