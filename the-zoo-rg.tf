@@ -163,7 +163,7 @@ resource "azurerm_virtual_machine" "ubuntu-vm-0" {
  #       ssh_keys {
  #           path     = "/home/ansibleroot/.ssh/authorized_keys"
  #           key_data = file("~/.ssh/id_rsa.pub")
-        }
+ #       }
     }
     
     tags = {
@@ -204,7 +204,7 @@ resource "azurerm_virtual_machine" "ubuntu-vm-1" {
  #       ssh_keys {
  #           path     = "/home/ansibleroot/.ssh/authorized_keys"
  #           key_data = file("~/.ssh/id_rsa.pub")
-        }
+ #       }
     }
 
     tags = {
