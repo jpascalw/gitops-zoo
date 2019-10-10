@@ -58,17 +58,16 @@ stages:
           - task: TerraformTaskV1@0
             displayName: 'Terraform Plan'
             inputs:
-              command: plan
-              workingDirectory: $(Pipeline.Workspace)/terraform_out
-              environmentServiceName: 'Azure SPN'
-              secureVarsFile: 'aks_conf.tfvars'
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
               commandOptions: '-out $(Pipeline.Workspace)/terraform_out/terraform_aks_out'
-              terraformVersion: 0.12.1
+              environmentServiceNameAzureRM: 'Biner Azure Cloud Subscription'
           - task: TerraformTaskV1@0
             displayName: 'Terraform Apply'
             inputs:
-              command: apply
-              workingDirectory: $(Pipeline.Workspace)/terraform_out
-              environmentServiceName: 'Azure SPN'
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
               commandOptions: '$(Pipeline.Workspace)/terraform_out/terraform_aks_out'
-              terraformVersion: 0.12.1
+              environmentServiceNameAzureRM: 'Biner Azure Cloud Subscription'
