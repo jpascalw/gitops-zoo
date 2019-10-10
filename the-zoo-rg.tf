@@ -2,6 +2,11 @@
 provider "azurerm" {
 }
 
+# 
+terraform {
+  backend "local" {}
+}
+
 # Create a resource group if it doesn’t exist
 resource "azurerm_resource_group" "the-zoo-rg" {
     name     = "the-zoo-rg"
