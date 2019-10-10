@@ -118,8 +118,8 @@ resource "azurerm_network_interface" "ubuntu-vm-1-nic" {
 }
 
 # Create storage account
-resource "azurerm_storage_account" "the-zoo-storage" {
-    name                        = "the-zoo-storage"
+resource "azurerm_storage_account" "thezoostorage" {
+    name                        = "thezoostorage"
     resource_group_name         = "${azurerm_resource_group.the-zoo-rg.name}"
     location                    = "northeurope"
     account_tier                = "Standard"
@@ -164,12 +164,7 @@ resource "azurerm_virtual_machine" "ubuntu-vm-0" {
             key_data = file("~/.ssh/id_rsa.pub")
         }
     }
-
-    boot_diagnostics {
-        enabled = "false"
-        storage_uri = "${azurerm_storage_account.storage.primary_blob_endpoint}"
-    }
-
+    
     tags = {
         cdsid = "pwalleni"
     }
@@ -208,11 +203,6 @@ resource "azurerm_virtual_machine" "ubuntu-vm-1" {
             path     = "/home/ansibleroot/.ssh/authorized_keys"
             key_data = file("~/.ssh/id_rsa.pub")
         }
-    }
-
-    boot_diagnostics {
-        enabled = "false"
-        storage_uri = "${azurerm_storage_account.storage.primary_blob_endpoint}"
     }
 
     tags = {
