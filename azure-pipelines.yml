@@ -24,10 +24,10 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendServiceArm: 'Biner Azure Cloud'
-        backendAzureRmResourceGroupName: 'the-zoo-rg'
-        backendAzureRmStorageAccountName: 'thezoostorage'
-        backendAzureRmContainerName: 'thezoostoragecontainer'
-        backendAzureRmKey: 'foo'
+        backendAzureRmResourceGroupName: 'tf-rg'
+        backendAzureRmStorageAccountName: 'gitopszootfstorage'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'prod.terraform.tfstate'
     - task: TerraformTaskV1@0
       displayName: 'Terraform Validate'
       inputs:
