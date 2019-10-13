@@ -21,13 +21,13 @@ stages:
     - task: TerraformTaskV1@0
       displayName: 'Terraform Initialize'
       inputs:
-        command: 'init'
         provider: 'azurerm'
-        backendServiceArm: 'Biner Azure Cloud Subscription'
+        command: 'init'
+        backendServiceArm: 'Biner Azure Cloud'
+        backendAzureRmResourceGroupName: 'the-zoo-rg'
         backendAzureRmStorageAccountName: 'thezoostorage'
         backendAzureRmContainerName: 'thezoostoragecontainer'
         backendAzureRmKey: 'foo'
-        backendAzureRmResourceGroupName: 'the-zoo-rg'
     - task: TerraformTaskV1@0
       displayName: 'Terraform Validate'
       inputs:
