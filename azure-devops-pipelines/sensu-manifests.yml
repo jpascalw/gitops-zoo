@@ -1,0 +1,60 @@
+# Pipeline to deploy Sensu Go checks, assets, and handler definitions 
+
+trigger:
+- master
+
+stages:
+- stage: Validate
+  jobs:
+  - job: Validate
+    continueOnError: false
+    steps:
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'terraform_out'
+        publishLocation: 'Container'
+    - task: TerraformInstaller@0
+      displayName: 'Use Terraform v0.12.10'
+      inputs:
+        terraformVersion: 0.12.10
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Initialize'
+      inputs:
+        command: 'init'
+        provider: 'azurerm'
+        backendServiceArm: 'Biner Azure Cloud'
+        backendAzureRmStorageAccountName: 'gitopszootfstorage'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'foo'
+        backendAzureRmResourceGroupName: 'tf-rg'
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Validate'
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+
+- stage: Deploy
+  jobs:
+  - deployment: Terraforming
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'Development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Plan'
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
+              environmentServiceNameAzureRM: 'Biner Azure Cloud'
+          - task: TerraformTaskV1@0
+            displayName: 'Terraform Apply'
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
+              environmentServiceNameAzureRM: 'Biner Azure Cloud'
