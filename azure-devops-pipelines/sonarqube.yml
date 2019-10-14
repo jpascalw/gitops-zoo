@@ -31,7 +31,7 @@ stages:
         backendServiceArm: 'Biner Azure Cloud'
         backendAzureRmStorageAccountName: 'gitopszootfstorage'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'foo'
+        backendAzureRmKey: 'terraform.tfstate'
         backendAzureRmResourceGroupName: 'tf-rg'
     - task: TerraformTaskV1@0
       displayName: 'Terraform Validate'
@@ -81,12 +81,12 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
+              workingDirectory: 'terraform-plans/'
               environmentServiceNameAzureRM: 'Biner Azure Cloud'
           - task: TerraformTaskV1@0
             displayName: 'Terraform Apply'
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '$(Pipeline.Workspace)/terraform_out'
+              workingDirectory: 'terraform-plans/'
               environmentServiceNameAzureRM: 'Biner Azure Cloud'
