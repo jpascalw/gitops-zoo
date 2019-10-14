@@ -63,7 +63,7 @@ stages:
               command: plan
               workingDirectory: $(Pipeline.Workspace)/terraform_out
               environmentServiceName: 'Biner Azure Cloud'
-              secureVarsFile: 'aks_conf.tfvars'
+              secureVarsFile: 'gitopszoo_conf.tfvars'
               commandOptions: '-out $(Pipeline.Workspace)/terraform_out/terraform_gitopszoo_out'
               terraformVersion: 0.12.10
           - task: TerraformTaskV1@0
