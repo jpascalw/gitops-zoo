@@ -61,7 +61,7 @@ stages:
         backendServiceArm: 'Biner Azure Cloud'
         backendAzureRmStorageAccountName: 'gitopszootfstorage'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'foo'
+        backendAzureRmKey: 'terraform.tfstate'
         backendAzureRmResourceGroupName: 'tf-rg'
     - task: TerraformTaskV1@0
       displayName: 'Terraform Validate'
