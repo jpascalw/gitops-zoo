@@ -1,7 +1,12 @@
 # Pipeline to deploy Grafana dashboards
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - grafana-dashboards/*
 
 stages:
 - stage: Validate
