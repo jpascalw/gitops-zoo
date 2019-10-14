@@ -1,7 +1,12 @@
 # Pipeline to deploy The Zoo demo environment
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - gitops-zoo-infrastructure/*
 
 stages:
 - stage: Validate

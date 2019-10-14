@@ -1,7 +1,12 @@
 # Pipeline to deploy Sonarqube
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - sonarqube/*
 
 stages:
 - stage: Validate

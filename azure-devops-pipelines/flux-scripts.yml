@@ -1,7 +1,12 @@
 # Pipeline to deploy Flux Scripts
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - flux-scripts/*
 
 stages:
 - stage: Validate

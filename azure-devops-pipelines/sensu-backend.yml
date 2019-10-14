@@ -1,7 +1,12 @@
 # Pipeline to deploy Sensu Go backend
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - sensu-backend/*
 
 stages:
 - stage: Validate

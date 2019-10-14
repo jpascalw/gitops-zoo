@@ -1,7 +1,12 @@
 # Pipeline to deploy InlfuxDB 
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - influxdb/*
 
 stages:
 - stage: Validate

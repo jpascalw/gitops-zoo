@@ -1,7 +1,12 @@
 # Pipeline to deploy Sensu Go checks, assets, and handler definitions 
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - sensu-manifests/*
 
 stages:
 - stage: Validate
