@@ -6,7 +6,7 @@ trigger:
     - master
   paths:
     include:
-    - gitops-zoo-infrastructure/*
+    - terraform-plans/main.tf
 
 stages:
 - stage: Validate
@@ -14,15 +14,6 @@ stages:
   - job: Validate
     continueOnError: false
     steps:
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'terraform_out'
-        publishLocation: 'Container'
-    - task: TerraformInstaller@0
-      displayName: 'Use Terraform v0.12.10'
-      inputs:
-        terraformVersion: 0.12.10
     - task: TerraformTaskV1@0
       displayName: 'Terraform Initialize'
       inputs:
