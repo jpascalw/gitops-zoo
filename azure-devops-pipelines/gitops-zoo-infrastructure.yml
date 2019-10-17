@@ -7,7 +7,7 @@ stages:
   - job: Validate
     continueOnError: false
     steps:
-    - publish: terraform-plans
+    - publish: common-infrastructure
       artifact: terraform_out
     - task: TerraformInstaller@0
       displayName: 'Use Terraform v0.12.10'
@@ -17,7 +17,7 @@ stages:
       displayName: 'terraform init'
       inputs:
         command: init
-        workingDirectory: terraform-plans
+        workingDirectory: common-infrastructure
         backendType: azurerm
         backendServiceArm: 'Biner Azure Cloud'
         backendAzureRmResourceGroupName: 'terraform-rg'
@@ -28,7 +28,7 @@ stages:
       displayName: 'terraform validate'
       inputs:
         command: validate
-        workingDirectory: terraform-plans
+        workingDirectory: common-infrastructure
  
 
 - stage: Deploy
